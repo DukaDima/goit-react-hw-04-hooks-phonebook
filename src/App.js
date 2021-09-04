@@ -37,11 +37,9 @@ export default function App() {
       contact.name.toLowerCase().includes(normalizedFilter),
     );
   };
-
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
-
   return (
     <>
       <h1>Телефонная книга</h1>
