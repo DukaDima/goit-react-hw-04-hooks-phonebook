@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import s from './AddContacts.module.css';
 import PropTypes from 'prop-types';
 
@@ -13,59 +13,59 @@ class AddContacts extends Component {
     phone: '',
   };
 
-  nameChange = e => {
-    this.setState({ name: e.currentTarget.value });
+  const nameChange = e => {
+    setName(e.currentTarget.value);
   };
-  phoneChange = e => {
-    this.setState({ phone: e.currentTarget.value });
+  const phoneChange = e => {
+    setPhone(e.currentTarget.value);
   };
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.setState({ name: '', phone: '' });
+    onSubmit({ name, phone });
+    setName('');
+    setPhone('');
   };
 
-  //render
-  render() {
-    return (
-      <form className={s.AddContact__form} onSubmit={this.handleSubmit}>
-        <div className={s.AddContact__input}>
-          <label>
-            {' '}
-            <p className={s.AddContact__title}>name</p>
-            <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-              value={this.state.name}
-              onChange={this.nameChange}
-            />
-          </label>
-        </div>
+  return (
+    <form className={s.AddContact__form} onSubmit={handleSubmit}>
+      <div className={s.AddContact__input}>
+        <label>
+          {' '}
+          <p className={s.AddContact__title}>name</p>
+          <input
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+            required
+            value={name}
+            onChange={nameChange}
+          />
+        </label>
+      </div>
 
-        <div className={s.AddContact__input}>
-          <label>
-            {' '}
-            <p className={s.AddContact__title}>number</p>
-            <input
-              type="tel"
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
-              value={this.state.phone}
-              onChange={this.phoneChange}
-            />
-          </label>
-        </div>
-
-        <button type="submit" className={s.AddContact__button}>
-          Add
-        </button>
-      </form>
-    );
-  }
+      <div className={s.AddContact__input}>
+        <label>
+          {' '}
+          <p className={s.AddContact__title}>number</p>
+          <input
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+            required
+            value={phone}
+            onChange={phoneChange}
+          />
+        </label>
+      </div>
+      <button type="submit" className={s.AddContact__button}>
+        Add
+      </button>
+    </form>
+  );
 }
-export default AddContacts;
+AddContacts.propTypes = {
+  name: PropTypes.string,
+  phone: PropTypes.string,
+};
