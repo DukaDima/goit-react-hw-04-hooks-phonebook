@@ -2,16 +2,9 @@ import { useState } from 'react';
 import s from './AddContacts.module.css';
 import PropTypes from 'prop-types';
 
-class AddContacts extends Component {
-  static propTypes = {
-    name: PropTypes.string,
-    phone: PropTypes.string,
-  };
-
-  state = {
-    name: '',
-    phone: '',
-  };
+export default function AddContacts({ onSubmit }) {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
 
   const nameChange = e => {
     setName(e.currentTarget.value);
